@@ -1,0 +1,135 @@
+body{
+    background-color:f5f5f5;
+    padding-top:40px;
+    padding-bottom:40px;
+}
+
+.right-box{
+    float:right;
+    padding:19px 29px 29px;
+    max-width:450px;           /* max-widthにしたらブラウザの大きさに合わせてサイズ変わってくれる。widthやと画面小さいと画面ハミ出てしかもみれへん */
+    background-color:white;
+    margin:0px 50px 20px 0px;  /* margin-bottomを20pxぐらい開けとかなアカン。じゃないと一番下がboxのbottomになってスクロールした時に気持ち悪い */
+    border:1px solid #e5e5e5;
+    
+    -webkit-border-radius:7px;
+       -moz-border-radius:7px;
+         -o-border-radius:7px;
+        -ms-border-radius:7px;
+    
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+       -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+         -o-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+        -ms-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+}
+.right-box li{
+    list-style-type:none;
+    margin-top:10px;
+    font-size:16px;
+    /* リストが右寄りになってる。どうにかしてもう少し左に寄せないと。 */
+}
+
+
+
+
+
+
+
+
+
+
+
+.left-box{
+    background-color:white;
+    float:left;
+    max-width:700px;
+    padding:0 29px 29px;
+    margin:0 auto 20px;
+    border:1px solid #e5e5e5;
+    -webkit-border-radius: 5px;
+       -moz-border-radius: 5px;
+            border-radius: 5px;
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+       -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+            box-shadow: 0 1px 2px rgba(0,0,0,.05);
+}
+
+.form-signin{
+    margin-bottom:10px;   /* 個人情報登録〜登録ボタンまでが「form」タグの「form-signin」クラスの中身。この内容の下には10pxのスペースを作ることで見栄えがバランスよくなる */
+}
+
+.form-signin input{
+    font-size:16px; /* inputを選択しているので、テキスト内部の文字の大きさを設定している。 */
+    color:black; /* 入力した文字が黒くなる。 */
+    margin-bottom: 15px;  /* inputなのでテキストエリアについてのcss。textareaを基準にmargin取ってる */
+    padding:7px 9px;　/* inputなのでテキストエリアについてのcss。textareaの内側の幅を記述している */
+}
+
+.left-box p{
+    padding-left:25px;
+    margin-top:0px;
+    font-size:15px;
+}
+
+.left-box h2{
+    margin-bottom:0px;
+    font-size:30px;
+}
+
+th{
+    width: 150px;
+    height: 40px;
+    text-align: left;
+    padding-left:20px;
+}
+
+td{
+    width:350px;
+    height: 40px;
+}
+
+.w60 { width: 60px; }
+.w80 { width: 80px; }
+.w100 { width: 100px; }
+
+
+
+/* 
+リストがなぜか左寄りになってる。
+左右のボッックスが中央に寄らない。左右の端っこにくっつく感じ。
+セレクトボックスをクリックすると、選択肢がたくさん出てくる。でもセレクトボックスの位置より下に表示される。見にくい。
+tab押して次の入力欄に行く。でも、セレクトボックスを選択中は無理。
+
+*/
+select{
+    appearance: menulist;
+    box-sizing:border-box;
+    height:30px;    /* box-sizingでheightを取ると自動で矢印のデザインが変わる。 セレクトボックスの縦幅変えれる。*/
+    font-size:15px;
+    align-items:center; /* https://developer.mozilla.org/ja/docs/Web/CSS/align-items */
+    white-space:pre;  /* 連続する半角スペース・タブ・改行をそのまま表示 */
+    cursor:pointer; /* カーソルを合わせると指になるけど、クリックすると矢印に戻る */
+
+    -webkit-rtl-ordering: logical;
+
+
+}
+
+/* 「input::placeholder」で（例）の文字色を変えられる。デフォルトでは灰色。
+
+input::placeholder{ 
+    color:red;
+}
+
+*/
+
+#nameError, #telError,
+#mailError,#sexError,
+#careerError{
+    color:red;
+    display:none;
+}
+
+/* 学校名のセレクトボックスの横幅を大きくする。 */
+#school { width: 250px; }
+

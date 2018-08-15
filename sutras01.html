@@ -1,0 +1,171 @@
+<html>
+    <head>
+    <meta charset="utf-8">
+    <!-- <link rel="stylesheet" href="./bootstrap/css/bootstrap.css">
+        <link rel="stylesheet" href="./bootstrap/css/bootstrap-responsive.css"> -->
+        <link rel="stylesheet" href="styleSutras01.css">
+        <link rel="stylesheet" href="modal.css">
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.2/moment.min.js"></script>
+        <!-- <script src="/bootstrap/js/bootstrap.js"></script> -->
+
+        <!-- jsファイル読み込み -->
+        <script type="text/javascript" src="buttons.js"></script>
+    </head>
+    <body>
+        <div class="right-box">
+            <h2>仕様</h2>
+            <ul>
+                    <li>1)名前、メアド、性別、最終学歴は必須</li>
+                    <li>2)電話番号：000-0000-0000 or 00000000000の形式の場合、チェックOK</li>
+                    <li>3)メアドは一般的なメアド形式のチェックを行う</li>
+                    <li>4)生年月日は、「月」選択時に、「日」の項目を正しい日にちの書き換える。
+                        <br/>　※３０日、うるう年を考慮</li>
+                    <li>5)最終学歴は、選んだ学歴のプルダウンを表示。
+                        <br/>　また、school.jsonからAJAXにて学歴のデータを取得し値を変更する。</li>
+                    <li>6)エラーチェックはリアルタイムにて行う</li>
+                    <li>7)項目の下にエラーメッセージを表示</li>
+                    <li>8)登録ボタン押下時、エラーがなければ入力した値をモーダルウィンドゥにて表示</li>
+                    <li>9)ソースは別ファイルにすること</li>
+            </ul>
+        </div>
+
+        <div class="left-box">
+        <form class="form-signin" name="form_signin"> 
+            <h2>個人情報登録</h2>
+            <p> <span style="color:red;">*</span>は必須項目です。</p>
+            <table>
+                <tr>
+                    <th>名前<span style="color:red;">*</span> </th>
+                    <td> 
+                        <input type="text" name="name" id="name" placeholder="例）岡本　太郎"  >  
+                        <br>
+                        <span id="nameError" >＊名前を入力してください</span>
+                    </td>
+                    <!-- nameは送信されたデータに属性を付ける。これでデータベースから簡単にアクセス出来る。 -->
+                    <!-- onblurは入力欄からフォーカスが外れると発生するイベント。これ使えば、リアルタイムで入力欄のエラーチェックが出来る。 -->
+                </tr>
+                <tr>
+                    <th>ふりがな</th>
+                    <td>
+                        <input type="text" name="furigana" id="furigana" placeholder="例）おかもと　たろう" >
+                    </td>
+                    <!-- valueやと、テキストボックスに（例）が入る。placeholderやと消えてくれる。 -->
+                </tr>
+                <tr>
+                    <th>電話番号</th>
+                    <td>
+                        <input type="tel" name="tel" id="tel" autocomplete="tel" placeholder="例）090-1234-5678"  >
+                        <br>
+                        <span id="telError">＊正しい電話番号を入力してください。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>メールアドレス<span style="color:red;">*</span></th>
+                    <td>
+                        <input type="email" name="mail" id="mail" autocomplete="email" placeholder="例）info@datora.jp"  >
+                        <span id="mailError">＊必須項目です</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>性別<span style="color:red;">*</span></th>
+                    <td>
+                        <input type="radio" class="sex" id="man" > <label for="man">男性</label> 
+                         <!-- idとlabel forを一緒にすると、ラジオボタンの横の文字をクリックしてもラジオボタンを押せる。 -->
+                         <input type="radio" class="sex" id="woman" > <label for="woman">女性</label>
+                         <span id="sexError">＊必須項目です</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>生年月日</th>
+                    <td>
+                        <select class="birthday" name="year" id="year" class="w100" onchange="monthCheck()" >
+                                <option value="1">--西暦--</option>
+                        </select>
+                        <select class="birthday" name="month" id="month" class="w80" onchange='monthCheck()' >  
+                            <!-- onchangeは、値が変更された時にイベントを起こす。2月になった時に、閏年かどうかをチェックして、29日を選択肢に追加するかを決めれる。 -->
+                            <option value="0">-月-</option>
+                            <option value="1">1月</option>
+                            <option value="2">2月</option>
+                            <option value="3">3月</option>
+                            <option value="4">4月</option>
+                            <option value="5">5月</option>
+                            <option value="6">6月</option>
+                            <option value="7">7月</option>
+                            <option value="8">8月</option>
+                            <option value="9">9月</option>
+                            <option value="10">10月</option>
+                            <option value="11">11月</option>
+                            <option value="12">12月</option>
+                        </select>
+
+                        <select class="birthday" name="day" id="day" class="w80" >
+                            <option value="0">-日-</option>
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>最終学歴<span style="color:red;">*</span></th>
+                    <td>
+                        <input type="radio" class="career" id="junior" value="0" onchange="schoolSelect(this.value)" ><label for="junior">中学</label>
+                        <input type="radio" class="career" id="high-school" value="1" onchange="schoolSelect(this.value)" ><label for="high-school">高校</label>
+                        <input type="radio" class="career" id="university" value="2" onchange="schoolSelect(this.value)" ><label for="university">大学</label>
+                        <input type="radio" class="career" id="no-career" value="3" onchange="schoolSelect(this.value)" ><label for="no-career">行ってない</label>
+                        <br>
+                        学校名：
+                        <select id="school" class="career"  >
+                            <option value="0" >-選択-</option>
+                        </select>
+                        <br>
+                        <span id="careerError">＊必須項目です</span>
+                    </td>
+                </tr>
+            </table>
+            <input type="button" value="登録" onclick="return valueCheck()" > 
+            <!-- onclickを使えば、登録ボタンを押した時にエラーチェックをしてくれるが、リアルタイムでやるには「onblur」 -->
+            <br>
+
+            <!-- 下のボタンたち -->
+            <!-- <input type="button" value="alert" onclick="alertButton()"> -->
+
+            <!-- <input type="button" value="名前を表示" onclick="alertName()"> このボタンを押すと、「alertName」関数が起動する。 -->
+
+            <!-- <input type="button" value="名前は入力されていますか？" onclick="checkName()" > -->
+
+            <!-- <input type="button" value="名前チェック" onclick= "fuck()" > -->
+                    
+
+        </form>
+        </div>
+
+
+
+        <!-- 最終チェック用のモーダルウィンドウ -->
+        <!-- さっきは「<div class="left-box"></div>」の中にモーダルウィンドウを入れていたからcssが上手く機能しなかった。 -->
+        <div class="modalBaseLayer" id="modalBaseLayer" >
+                <div class="modal" id="modal" >
+                    <h3>[登録情報]</h3>
+                    <span id="check_name" ></span>
+                    <span id="check_furigana" ></span>
+                    <span id="check_tel" ></span>
+                    <span id="check_mail"></span>
+                    <span id="check_sex" ></span>
+                    <span id="check_birthday"></span>
+                    <span id="check_school" ></span>
+                    <br>
+                    以上の内容でよろしいですか？
+                    <br>
+                    <input type="button" value="Yes" id="submit" onclick="document.form_signin.reset()" > 
+                    <!-- ボタンに「onclick="document.form_signin.reset()"」を書き加えると、そのボタンが押されたら、入力フォームすべての入力値をリセットしてくれる -->
+                    <input type="button" value="No" id="closeModal" >
+                </div>
+        </div>
+    
+    </body>
+
+
+
+
+</html>
+

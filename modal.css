@@ -1,0 +1,58 @@
+@charset "UTF-8";
+
+/* モーダルウィンドウ用 基本CSS */
+
+html, body {
+    height: 100%; /* #wrap min-height: 100%;を実装するために必要 */
+}
+
+/* モーダルウィンドウ下層のベースレイヤー */
+.modalBaseLayer {
+    visibility: hidden; /* visibilityプロパティ値を操作することで、モーダルウィンドウを表示・非表示することができます */
+    position: absolute; /* .modalBaseLayer を、画面ぴったりに縦横100%指定するために必要 */
+    z-index: 10;        /* #contentsより上のレイヤーに表示するために必要 */
+    top: 0;             /* .modalBaseLayer を、画面ぴったりに縦横100%指定するために必要 */
+    left: 0;            /* .modalBaseLayer を、画面ぴったりに縦横100%指定するために必要 */
+    right: 0;           /* .modalBaseLayer を、画面ぴったりに縦横100%指定するために必要 */
+    bottom: 0;          /* .modalBaseLayer を、画面ぴったりに縦横100%指定するために必要 */
+    margin: auto;       /* .modalBaseLayer を、画面ぴったりに縦横100%指定するために必要 */
+    width: 100%;        /* .modalBaseLayer を、画面ぴったりに縦横100%指定するために必要 */
+    background-color: rgba(0,0,0,0.7); /* モーダルのベースレイヤを、黒の透明度30%で表示 */
+}
+
+/* モーダルウィンドウ */
+.modal {
+    position: absolute; /* .modalBaseLayer を、基準要素として絶対配置 */
+    top: 20%;          /* モーダルウィンドウの上余白 */
+    left: 30%;         /* モーダルウィンドウの左余白 */
+    right: 30%;        /* モーダルウィンドウの右余白 */
+    margin: auto;       /* モーダルウィンドウを左右中央配置（幅指定された場合用） */
+    background-color: #fff; /* モーダルウィンドウの背景色 */
+    padding: 20px  40px;       /*    これが邪魔して文字が中央揃えにならへん！！！   */
+    border-radius: 10px;
+}
+
+/* marginには論理プロパティと行って、「top,bottom,left.right」以外にも「start,before,end,after」がある */
+/* https://kojika17.com/2012/08/margin-of-css.html  ここ見れば分かる！！！*/
+.modal h3{ 
+    -webkit-margin-before: 0em;
+    -webkit-margin-after: 0.5em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+}
+
+/* モーダルボタンの大きさ       高さ変えられへん！！！！      */
+#submit,#closeModal{
+    width:70px;
+    font-size:70px;    /* heightで高さ変えられへんかったから、文字大きくして無理やり高くした。 */
+}
+
+
+
+/*      うまいこと機能しやんぞ！！！！！！！！！！！！
+#check_name,#check_furigana,
+#check_tel,#check_mail,
+#check_sex,#check_birthday,
+#check_school{
+    vertical-align: middle;
+} */
