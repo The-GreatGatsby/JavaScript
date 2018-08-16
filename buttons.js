@@ -1,69 +1,25 @@
-// // alertボタン
-// const alertButton = function(){
-//     alert("Hello Wrld");
-// };
-
-// //　名前を表示ボタン
-// const alertName = function(){
-//     const name_value = $("name").value;
-//     alert(name_value);
-// };       
-
-// //名前は入力されていますか？ボタン
-// const checkName = function(){
-//     const name_value = $("name").value;
-//     const name_value2 = name_value.trim();  // 空白を削除してくれる。文字列がある場合は前後の空白のみ削除し、文字と文字の間の空白は残るから「岡本　ゆうき」はそのまま！！！
-//     if(name_value2 === ""){
-//         alert("空です");
-        
-//     }else{
-//         alert(`名前は${name_value2}です。`);
-//   }
-// }           
-
-// //名前チェックボタン
-// const fuck = function(){
-//     const name_value = $("name").value;
-//     const name_value2 = name_value.trim();
-//     if(name_value2 === ""){
-//         $("#nameError").show();
-//         // name.style.color="pink"; /////上手くいかへん！！！！！
-//     }else{
-//         $("#nameError").fadeOut();
-//     }
-// }          
-//     //** $(function(){  これ使うとHTMLを全部読み込んでから、このカッコ内のJSを使うことになる。でもHTMLの途中で、このカッコ内JSの関数を使うから、jqueryと一緒に先に読み込まなあかん。
-//     // fuck();
-//     // });
-
-
-var nameCheck;
-var telCheck;
-var mailCheck;
-var sexCheck;
-var monthCheck;
-var careerCheck
-
-// onblurとる、
-
-
-
-///////////////////////////////////登録ボタン//////////////////////////////////////
 //名前確認
-$("#name").on("blur",function(){   ///.get(0)つけるべき？？？
+const nameCheck = function(){
     const name_value = $("#name").get(0).value;
     const name_value2 = name_value.trim();
     if(name_value2 === ""){
         $("#nameError").show();
-        return nameCheck = false;
+        return false;
     }else{
         $("#nameError").fadeOut();
-        return nameCheck = true;
+        return true;
     }
+};       
+$(document).ready(function(){
+    $("#name").blur(function(){
+        nameCheck();
+    });
 });
 
+
+
 //電話番号チェック　
-$("#tel").on("blur",function(){
+const telCheck = function(){
     var tel_value = $("#tel").get(0).value; 
     if( !tel_value.match(/^(\d{3}-\d{4}-\d{4}|\d{11})$/)){  //正規表現にスペースはアカン。
         //matchやと、正規表現の文字が含まれているかどうかしかチェックしない。正規表現の文字さえ含まれていたら文字数が大きくても問題ない。
@@ -71,29 +27,41 @@ $("#tel").on("blur",function(){
         // matchやと、文字列が検索に引っかからないとnull値を返す。
         // ^()で先頭一致、()$で後方一致。  両方使うことで完全一致にできる！！！！！！！！！！！
         $("#telError").show();
-        return telCheck = false;
+        return false;
     }else{
         $("#telError").fadeOut();
-        return telCheck = true;
+        return true;
     }
+}
+$(document).ready(function(){
+    $("#tel").blur(function(){
+        telCheck();
+    });
 });
+
 
 
 // メールアドレスのチェック
-$("#mail").on(blur,function(){
+const mailCheck = function(){
     const mail_value = $("#mail").get(0).value;
     if( !mail_value.match(new RegExp(/^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/))){
         $("#mailError").show();
-        return mailCheck = false;
+        return false;
     }else{
         $("#mailError").fadeOut();
-        return mailCheck = true;
+        return true;
     }
+}
+$(document).ready(function(){
+    $("#mail").blur(function(){
+        mailCheck();
+    });
 });
 
+
+
 //性別チェック
-// 関数が定義されてへん
-$(".class").on(blur,function(){
+const sexCheck = function(){
     if( ($("#man").get(0).checked == false) && ($("#woman").get(0).checked==false ) ){
         $("#sexError").show();
         return false;
@@ -101,28 +69,28 @@ $(".class").on(blur,function(){
         $("#sexError").fadeOut();
         return true;
     }
+}
+$(document).ready(function(){
+    $(".sex").blur(function(){
+        sexCheck();
+    });
 });
 
 
 
-/// 上手くいかへん！！！！！
-(function(){
+// 西暦楽々生産機
+$(function(){
     var time = new Date();
-    var endYear = time.getFullYear();
-    for(var i =1900; i<=endYear; i++){
-        $("#year").append($('<option>').text(i + '年').val(i));
-    }
-}());
+    var aaa = time.getFullYear();
+    for(var i =1900; i<=aaa; i++){
+        $("#year").get(0).add(new Option(i.toString() +"年", i.toString() ));
+    };
+});
 
 
 
-// 閏年チェック
-// １００年で割れる年は、閏年ちゃう。
-// でも、400年で割れる年は、閏年。
-// documentはHTML要素全体を指す。これを使えば、好きなHTML要素の情報を取得したり、新しくHTML要素を追加するような処理を簡単に実現できる。
-// documentは「.プロパティ」「.メソッド」のように使う。　https://www.sejuku.net/blog/30970
-// 「document.head」やとheadタグの要素を取得する。 「document.body」やとbodyタグの要素を取得する。
-$(".birthday").on(blur,function(){
+// 閏年チェック.       １００年で割れる年は、閏年ちゃう。でも、400年で割れる年は、閏年。
+const monthCheck = function(){
     var year_value = $("#year").get(0).value;
     var month_value = $("#month").get(0).value;
     year_value = parseInt(year_value);
@@ -163,12 +131,87 @@ $(".birthday").on(blur,function(){
             $("#day").get(0).options[i] = new Option(i+"日", i);
         }
     }
+}
+$(document).ready(function(){
+    $("#year,#month").change(function(){
+        monthCheck();
+    });
 });
 
 
 
-//学歴フィルター、ラジオボタン      これは、登録ボタンを押したときだけにエラーチェックしてくれる。
-$(".career").on(blur,function(){
+
+// JSONデータ読み込み。    選択した最終学歴によって学校リストを変更
+function schoolSelect(value) {
+
+    arrayNum = $("#school").get(0).options.length;
+    //セレクトボックスの初期化
+    for(var i=1; i<arrayNum; i++) {
+      $("#school").get(0).options[1] = null;
+    }
+
+    // ラジオボタンのvalueで条件分岐
+    switch(parseInt(value, 10)) {      // parseInt()は第２引数で、進数を決める。この場合は10なので、10進数。
+        case 0: //中学
+            $.getJSON("school.json",{name:"chara"} , function(data) {  
+                // {name:"chara"}       入力提出さえたデータは相手側のデータサーバーに送られる。データを検索しやすくする為のタグ付をしている！！！
+                // $.getJSONで、データを読み込んだら、その後の処理を、「function」で決められる。
+                var list = data.juniorhighschool;
+                $.each(list, function(i) {       //////// なんでここで「i」を宣言できてんの？？？
+                    // 「$.each」は「for」の書き換え。　　　「list」すべてのデータにfunctionを適応。
+                    $("#school").get(0).options[i] = new Option(list[i], list[i]);
+                });
+            });
+            break;
+
+            //  オブジェクトを配列のように使うには、「Object.values(オブジェクトデータ)」か「for i in オブジェクトデータ」
+        case 1: //高校
+            $.getJSON("school.json", {name: "chara"}, function(data) {
+                var list = data.highschool;
+                var values = Object.values(list);       //  jsonのデータは配列ではなくオブジェクト！！！！！
+                for(var i=1; i< values.length; i++ ) {
+                    $("#school").get(0).options[i] = new Option(list[i], list[i]);
+                }
+            });
+            //     $.each(list, function(i) {
+            //         $.school.options[i] = new Option(list[i], list[i]);
+            //     });
+            // });
+
+            break;
+
+            //  オブジェクトを配列のように使うには、「Object.values(オブジェクトデータ)」か「for i in オブジェクトデータ」
+        case 2: //大学
+            $.getJSON("school.json", {name: "chara"}, function(data) {
+                var list = data.university;
+                for(var i in data.university){  //  「for in」もオブジェクトを配列のように使える。
+                    $("#school").get(0).options[i] = new Option(list[i], list[i]);
+                }
+                
+                // $.each(list, function(i) {       //  https://q-az.net/without-jquery-each/
+                //     $.school.options[i] = new Option(list[i], list[i]);
+                // });
+            });
+            break;
+        
+        
+        case 3: //
+
+        default: break;
+    }
+}
+$(document).ready(function(){
+    $(".career").change(function(){
+        var careerNum = $('input[name="type_career"]:checked').val();      // nameで同じ属性をもつラジオボタンの中から、チェックされてるボタンのvalueを取得！！！
+        schoolSelect(careerNum);
+    });
+});
+
+
+
+
+// 学歴チェック
+const careerCheck = function(){
     var school_value = $("#school").get(0).value;
     if( ($("#junior").get(0).checked==false) && ($("#high-school").get(0).checked==false) && 
         ($("#university").get(0).checked==false) && ($("#no-career").get(0).checked==false ) ){
@@ -183,16 +226,15 @@ $(".career").on(blur,function(){
     }else{
             $("#careerError").fadeOut();
             return true;
-            
         }
+}
+$(document).ready(function(){
+    $("#school").blur(function(){
+        careerCheck();
+    });
 });
 
 
-
-
-
-//　エラー出た時のボックスの色かえられへん
-//　入力内容にエラーなければモーダルウィンドウ
 
 
 
@@ -213,7 +255,7 @@ function valueCheck() {
     var sex;
     if($("#man").get(0).checked == true) {
         sex = "男性";
-    } else if($("woman").get(0).checked == true) {
+    } else if($("#woman").get(0).checked == true) {
         sex = "女性";
     }
     var year = $("#year").get(0).value;
@@ -283,67 +325,18 @@ function valueCheck() {
 
     
 }
+$(document).ready(function(){
+    $("#finalCheck").click(function(){
+        valueCheck();
+    });
+});
 
 
 
 
-
-//選択した最終学歴によって学校リストを変更
-function schoolSelect(value) {
-
-    arrayNum = $("#school").get(0).options.length;
-    //セレクトボックスの初期化
-    for(var i=1; i<arrayNum; i++) {
-      $("#school").get(0).options[1] = null;
-    }
-
-    // ラジオボタンのvalueで条件分岐
-    switch(parseInt(value, 10)) {      // parseInt()は第２引数で、進数を決める。この場合は10なので、10進数。
-        case 0: //中学
-            $.getJSON("school.json",{name:"chara"} , function(data) {  
-                // {name:"chara"}       入力提出さえたデータは相手側のデータサーバーに送られる。データを検索しやすくする為のタグ付をしている！！！
-                // $.getJSONで、データを読み込んだら、その後の処理を、「function」で決められる。
-                var list = data.juniorhighschool;
-                $.each(list, function(i) {       //////// なんでここで「i」を宣言できてんの？？？
-                    // 「$.each」は「for」の書き換え。　　　「list」すべてのデータにfunctionを適応。
-                    $("#school").get(0).options[i] = new Option(list[i], list[i]);
-                });
-            });
-            break;
-
-            //  オブジェクトを配列のように使うには、「Object.values(オブジェクトデータ)」か「for i in オブジェクトデータ」
-        case 1: //高校
-            $.getJSON("school.json", {name: "chara"}, function(data) {
-                var list = data.highschool;
-                var values = Object.values(list);       //  jsonのデータは配列ではなくオブジェクト！！！！！
-                for(var i=1; i< values.length; i++ ) {
-                    $("#school").get(0).options[i] = new Option(list[i], list[i]);
-                }
-            });
-            //     $.each(list, function(i) {
-            //         $.school.options[i] = new Option(list[i], list[i]);
-            //     });
-            // });
-
-            break;
-
-            //  オブジェクトを配列のように使うには、「Object.values(オブジェクトデータ)」か「for i in オブジェクトデータ」
-        case 2: //大学
-            $.getJSON("school.json", {name: "chara"}, function(data) {
-                var list = data.university;
-                for(var i in data.university){  //  「for in」もオブジェクトを配列のように使える。
-                    $("#school").get(0).options[i] = new Option(list[i], list[i]);
-                }
-                
-                // $.each(list, function(i) {       //  https://q-az.net/without-jquery-each/
-                //     $.school.options[i] = new Option(list[i], list[i]);
-                // });
-            });
-            break;
-        
-        
-        case 3: //
-
-        default: break;
-    }
-}
+//  モーダルウィンドウのYESを押した時に入力値をリセットする処理
+$("document").ready(function(){
+    $("#submit").click(function(){
+        $(".form-signin")[0].reset();
+    });
+});

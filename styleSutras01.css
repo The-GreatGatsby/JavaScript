@@ -61,7 +61,7 @@ body{
 .form-signin input{
     font-size:16px; /* inputを選択しているので、テキスト内部の文字の大きさを設定している。 */
     color:black; /* 入力した文字が黒くなる。 */
-    margin-bottom: 15px;  /* inputなのでテキストエリアについてのcss。textareaを基準にmargin取ってる */
+    margin-bottom: 15px; /* こいつのせいで各項目間のスペースが変。 */ 
     padding:7px 9px;　/* inputなのでテキストエリアについてのcss。textareaの内側の幅を記述している */
 }
 
@@ -75,6 +75,10 @@ body{
     margin-bottom:0px;
     font-size:30px;
 }
+/* 
+tr{
+    margin-bottom:40px;
+} */
 
 th{
     width: 150px;
@@ -131,5 +135,10 @@ input::placeholder{
 }
 
 /* 学校名のセレクトボックスの横幅を大きくする。 */
-#school { width: 250px; }
+.w250 { width: 250px; }
 
+
+
+.zokugara{
+    width:100px;
+}
