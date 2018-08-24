@@ -247,6 +247,7 @@ function valueCheck() {
     sexCheck();
     careerCheck();
     frCheck();
+    telCheck();
 
     // モーダルに表示するために、入力値を変数に代入しとく。
     var name = $("#name").get(0).value;
@@ -306,7 +307,7 @@ function valueCheck() {
     }
 
     //すべての必須項目でエラーなしならモーダルウィンドウを表示
-    if(nameCheck()==true && telCheck()==true && mailCheck()==true && sexCheck()==true &&
+    if(nameCheck()==true && mailCheck()==true && sexCheck()==true &&
       careerCheck()==true && frCheck() == true) {
         var baseLayer    = $('#modalBaseLayer').get(0); //モーダルウィンドウ
         var submit       = $('#submit').get(0); //はい
@@ -346,6 +347,7 @@ $(document).ready(function(){
     $("#submit").click(function(){
         $(".form-signin")[0].reset();
         removeAddedFR();
+        $("#telError").fadeOut();
     });
 });
 
