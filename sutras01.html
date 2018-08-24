@@ -30,14 +30,14 @@
         </div>
 
         <div class="left-box">
-        <form class="form-signin" name="form_signin"> 
+        <form class="form-signin" name="form_signin">
             <h2>個人情報登録</h2>
             <p> <span style="color:red;">*</span>は必須項目です。</p>
             <table>
                 <tr>
                     <th>名前<span style="color:red;">*</span> </th>
-                    <td> 
-                        <input type="text" name="name" id="name" placeholder="例）岡本　太郎" >  
+                    <td>
+                        <input type="text" name="name" id="name" placeholder="例）岡本　太郎" >
                         <br>
                         <span id="nameError" >＊名前を入力してください</span>
                     </td>
@@ -69,7 +69,7 @@
                 <tr>
                     <th>性別<span style="color:red;">*</span></th>
                     <td>
-                        <input type="radio" name="type_sex" class="sex" id="man" > <label for="man">男性</label> 
+                        <input type="radio" name="type_sex" class="sex" id="man" > <label for="man">男性</label>
                          <!-- idとlabel forを一緒にすると、ラジオボタンの横の文字をクリックしてもラジオボタンを押せる。 -->
                          <input type="radio" name="type_sex" class="sex" id="woman" > <label for="woman">女性</label>
                          <span id="sexError">＊必須項目です</span>
@@ -81,7 +81,7 @@
                         <select name="year" id="year" class="w100" >
                                 <option value="1">--西暦--</option>
                         </select>
-                        <select name="month" id="month" class="w80" >  
+                        <select name="month" id="month" class="w80" >
                             <!-- onchangeは、値が変更された時にイベントを起こす。2月になった時に、閏年かどうかをチェックして、29日を選択肢に追加するかを決めれる。 -->
                             <option value="0">-月-</option>
                             <option value="1">1月</option>
@@ -120,17 +120,31 @@
                         <span id="careerError">＊必須項目です</span>
                     </td>
                 </tr>
-                <tr class="aaa">
-                    <th>家族構成
-                        <br> <span style="color:red; font-size:11px" >*1人以上記入してください。</span></th>
-                    <td>
-                        続柄：<input type="text" placeholder="例）父" class="family zokugara" id="family_relation" >
+
+
+
+
+                <tr class="aaa"> <!-- margin-bottomを調整したいからとりあえずクラス作成した -->
+                    <th>家族構成<span style="color:red;" >*</span>
                         <br>
+                        <!-- 「input type=button」はMacのChromeではheight調整できない。
+                        だから「button」タグを使う。これはvalueの代わりに、「font」タグで文字を囲む -->
+                        <button type="button" id="addFamilyRelation" value="+"\>  <font size="5" color="black">+</font>
+                        <br>
+                        <br>
+                        <!-- buttonタグがよー分からん。そのせいでエラー文が変に改行されたり、ボタンと被る。
+                             改行をさせない「nobr」タグ。　「button」タグと被らない為に「br」タグ2個連続させた -->
+                        <nobr><span id="frError" style="font-size:11px;" >*1人以上記入してください。</span></nobr>
+                    </th>
+                    <td class="bbb">
+                        続柄：<input type="text" placeholder="例）父" class="family zokugara" id="family_relation" >
                         名前：<input type="text" placeholder="例）岡本　太郎" class="family name_zoku" id="family_name" >
                     </td>
                 </tr>
             </table>
-            <input type="button" id="finalCheck" value="登録" > 
+
+
+            <button type="button" id="finalCheck" value="登録" >  <font size="2" color="black">登録</font>
             <!-- onclickを使えば、登録ボタンを押した時にエラーチェックをしてくれるが、リアルタイムでやるには「onblur」 -->
             <br>
 
@@ -142,7 +156,7 @@
             <!-- <input type="button" value="名前は入力されていますか？" onclick="checkName()" > -->
 
             <!-- <input type="button" value="名前チェック" onclick= "fuck()" > -->
-                    
+
 
         </form>
         </div>
@@ -161,19 +175,20 @@
                     <span id="check_sex" ></span>
                     <span id="check_birthday"></span>
                     <span id="check_school" ></span>
+                    <span id="check_fr" ></span>
+                    <span class="multipleFR" ></span>
                     <br>
                     以上の内容でよろしいですか？
                     <br>
-                    <input type="button" value="Yes" id="submit" > 
+                    <input type="button" value="Yes" id="submit" >
                     <!-- ボタンに「onclick="document.form_signin.reset()"」を書き加えると、そのボタンが押されたら、入力フォームすべての入力値をリセットしてくれる -->
                     <input type="button" value="No" id="closeModal" >
                 </div>
         </div>
-    
+
     </body>
 
 
 
 
 </html>
-

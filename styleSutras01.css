@@ -11,12 +11,12 @@ body{
     background-color:white;
     margin:0px 50px 20px 0px;  /* margin-bottomを20pxぐらい開けとかなアカン。じゃないと一番下がboxのbottomになってスクロールした時に気持ち悪い */
     border:1px solid #e5e5e5;
-    
+
     -webkit-border-radius:7px;
        -moz-border-radius:7px;
          -o-border-radius:7px;
         -ms-border-radius:7px;
-    
+
     -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
        -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
          -o-box-shadow: 0 1px 2px rgba(0,0,0,.05);
@@ -61,7 +61,7 @@ body{
 .form-signin input{
     font-size:16px; /* inputを選択しているので、テキスト内部の文字の大きさを設定している。 */
     color:black; /* 入力した文字が黒くなる。 */
-    margin-bottom: 15px; /* こいつのせいで各項目間のスペースが変。 */ 
+    margin-bottom: 15px; /* こいつのせいで各項目間のスペースが変。 */
     padding:7px 9px;　/* inputなのでテキストエリアについてのcss。textareaの内側の幅を記述している */
 }
 
@@ -75,7 +75,7 @@ body{
     margin-bottom:0px;
     font-size:30px;
 }
-/* 
+/*  記入ボックス間のスペースがおかしい。marginが邪魔してるから！    でもこのままではエラー
 tr{
     margin-bottom:40px;
 } */
@@ -98,7 +98,7 @@ td{
 
 
 
-/* 
+/*
 リストがなぜか左寄りになってる。
 左右のボッックスが中央に寄らない。左右の端っこにくっつく感じ。
 セレクトボックスをクリックすると、選択肢がたくさん出てくる。でもセレクトボックスの位置より下に表示される。見にくい。
@@ -121,7 +121,7 @@ select{
 
 /* 「input::placeholder」で（例）の文字色を変えられる。デフォルトでは灰色。
 
-input::placeholder{ 
+input::placeholder{
     color:red;
 }
 
@@ -129,7 +129,7 @@ input::placeholder{
 
 #nameError, #telError,
 #mailError,#sexError,
-#careerError{
+#careerError,#frError{
     color:red;
     display:none;
 }
@@ -138,7 +138,26 @@ input::placeholder{
 .w250 { width: 250px; }
 
 
+/* 「+」ボタンをクリックしやすいように大きくしたい
+    buttonのサイズ感がよー分からん
+ */
+#addFamilyRelation{
+  width:50px;
+  height:30px;
+  padding-right:4px;
+  padding-bottom:35px;
+}
 
+#finalCheck{
+  width:60px;
+  height:30px;
+  margin-top:30px;
+}
+
+/* th,tdでwidthを設定してるから、ここで大きさ指定しな、無駄にデカなる。 */
 .zokugara{
-    width:100px;
+  width:80px;
+}
+.name_zoku{
+  width:160px;
 }
